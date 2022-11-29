@@ -1,4 +1,5 @@
 import { getCurrentInstance as instance } from 'vue'
+import {mapHtmlForm} from "../../utils/helper";
 
 export default {
     namespaced: true,
@@ -11,6 +12,10 @@ export default {
         eProviderFeaturedEServices: [],
     }),
     mutations: {
+        UPDATE_USER(state, payload) {
+            state.user = payload
+            localStorage.setItem('user', JSON.stringify(payload))
+        },
         UPDATE_E_PROVIDER(state, eProvider) {
             state.eProvider = eProvider
         },
@@ -35,6 +40,16 @@ export default {
         },
     },
     actions: {
+        async registerEProviderAction({ dispatch, commit }, event) {
+            let data = mapHtmlForm(event);
+            const response = await this.$axios.post(('provider/users/'+data.user_id), data)
+            if (response.status === 200 && response.data?.success) {
+                commit('UPDATE_USER', response.data.data)
+                return { type: 'success', title: 'Profile updated successfully', message: 'Thank you for updating your profile' }
+            }
+            return { type: 'error', title: 'Profile\'s completion Error', message: response.data?.message }
+        },
+
         getEProvider({ commit }, id = '') {
             commit('UPDATE_E_PROVIDER', {})
             let queryParameters = {

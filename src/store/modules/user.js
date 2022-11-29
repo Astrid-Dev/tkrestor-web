@@ -72,7 +72,7 @@ export default {
             const response = await this.$axios.post('register', mapHtmlForm(event))
             if (response.status === 200 && response.data?.success) {
                 commit('UPDATE_USER', response.data.data)
-                dispatch('getAddressesAction')
+                dispatch('getAddressesAction');
                 return { type: 'success', title: 'Account created successfully', message: 'Thank you for creating new account' }
             }
             return { type: 'error', title: 'Sign-up Error', message: response.data?.message }

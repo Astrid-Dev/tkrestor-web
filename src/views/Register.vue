@@ -82,12 +82,21 @@ export default {
   },
   methods: {
     ...mapActions('user', ['registerAction']),
+    ...mapActions('user', ['loginAction']),
     ...mapActions('snackbar', ['toggleSnackBarAction']),
 
     register(event) {
       this.registerAction(event).then(result => {
         if (result.type === 'success') {
-          this.$router.push({ name: 'Home' })
+          this.$router.push({ name: 'EProviderRegistration' })
+
+          // this.loginAction(event).then(result => {
+          //   if (result.type === 'success') {
+          //     this.$router.push({ name: 'EProviderRegistration' })
+          //   } else {
+          //     this.toggleSnackBarAction(result)
+          //   }
+          // })
         } else {
           this.toggleSnackBarAction(result)
         }

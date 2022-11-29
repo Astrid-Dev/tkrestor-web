@@ -4,9 +4,10 @@
     <div class='px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8'>
       <div class='xl:grid xl:grid-cols-3 xl:gap-8'>
         <div class='space-y-4 xl:col-span-1'>
-          <router-link as='div' class='cursor-pointer' to='/'>
+          <router-link as='div' class='flex flex-shrink-0 items-center cursor-pointer' to='/'>
             <img :alt='this.$settings["app_name"]' :src='this.$settings["app_logo"]'
-                 class='w-auto h-12' />
+                 class='w-auto h-12 lg:block' />
+            <span class='mx-3 font-bold text-second-color-600'>{{ this.$settings['app_name'] }}</span>
           </router-link>
           <p class='text-base text-gray-500'>
             {{ $t('Home Service Company provides a platform that allows skilled and experienced professionals to connect with users looking for specific services.')

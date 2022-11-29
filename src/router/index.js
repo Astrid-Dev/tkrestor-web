@@ -17,7 +17,7 @@ const routes = [
     { path: '/', name: 'Home', component: Home },
     { path: '/login', name: 'Login', component: Login, meta: { requiresNotAuth: true } },
     { path: '/register', name: 'Register', component: Register, meta: { requiresNotAuth: true } },
-    { path: '/complete_your_profile', name: 'EProviderRegistration', component: EProviderRegistration},
+    { path: '/complete_your_profile', name: 'EProviderRegistration', component: EProviderRegistration, meta: { requiresAuth: true }},
     { path: '/categories', name: 'Categories', component: Categories },
     { path: '/category/:id/:sort?/:price?/:review?', name: 'Category', component: Category },
     { path: '/favorites/:price?', name: 'Favorites', component: Favorites, meta: { requiresAuth: true } },
