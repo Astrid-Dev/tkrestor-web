@@ -10,14 +10,15 @@ export default {
         eProviderAwards: [],
         eProviderExperiences: [],
         eProviderFeaturedEServices: [],
+        eProviderTypes: []
     }),
     mutations: {
-        UPDATE_USER(state, payload) {
-            state.user = payload
-            localStorage.setItem('user', JSON.stringify(payload))
-        },
         UPDATE_E_PROVIDER(state, eProvider) {
             state.eProvider = eProvider
+            localStorage.setItem('provider', JSON.stringify(payload))
+        },
+        UPDATE_E_PROVIDER_TYPES(state, eProviderTypes) {
+            state.eProviderTypes = eProviderTypes
         },
         UPDATE_E_PROVIDER_REVIEWS(state, reviews) {
             state.eProviderReviews.push(...reviews)
@@ -42,12 +43,18 @@ export default {
     actions: {
         async registerEProviderAction({ dispatch, commit }, event) {
             let data = mapHtmlForm(event);
-            const response = await this.$axios.post(('provider/users/'+data.user_id), data)
+            const response = await this.$axios.post(('e_providers'), data)
             if (response.status === 200 && response.data?.success) {
-                commit('UPDATE_USER', response.data.data)
+                commit('UPDATE_E_PROVIDER', response.data.data)
                 return { type: 'success', title: 'Profile updated successfully', message: 'Thank you for updating your profile' }
             }
             return { type: 'error', title: 'Profile\'s completion Error', message: response.data?.message }
+        },
+
+        getEProviderTypes({ commit }) {
+            this.$axios.get(`provider/e_provider_types`).then(response => {
+                commit('UPDATE_E_PROVIDER_TYPES', response.data.data)
+            })
         },
 
         getEProvider({ commit }, id = '') {

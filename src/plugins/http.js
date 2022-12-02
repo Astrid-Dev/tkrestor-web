@@ -6,7 +6,7 @@ function createInstance(baseURL) {
         baseURL,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.token}`,
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('user'))?.api_token}`,
         },
     })
 }

@@ -101,6 +101,7 @@
                     </div>
 
                     <input type="hidden" id="user_id" name="user_id" v-model="eProviderData.user_id" disabled="disabled"/>
+                    <input type="hidden" id="e_provider_type_id" name="e_provider_type_id" v-model="eProviderData.type_id" disabled="disabled"/>
 
 
                     <button v-if="!isProcessing"
@@ -199,11 +200,14 @@
                     enterprise_name: null,
                     have_an_enterprise: null,
                     partner_name: null,
-                    user_id: null
+                    user_id: null,
+                    type_id: null
                 }
             }
         },
         mounted(){
+            this.eProviderData.type_id = 3;
+            console.log(this.eProviderData.type_id);
             setTimeout(() =>{
                 this.user = this.getUser;
                 this.eProviderData.user_id = this.user.id;
@@ -222,7 +226,6 @@
             ...mapActions('snackbar', ['toggleSnackBarAction']),
 
             register(event) {
-            console.log('okok')
                 this.isProcessing = true;
                 this.registerEProviderAction(event).then(result => {
                     if (result.type === 'success') {
@@ -249,6 +252,8 @@
                 if(!this.isAWorker()){
                     this.eProviderData.enterprise_name = null;
                 }
+
+                this.eProviderData.type_id = this.isAWorker() ? 2 : 3;
             }
         }
     }
